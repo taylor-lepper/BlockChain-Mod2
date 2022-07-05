@@ -345,13 +345,14 @@ namespace Wallets
             {
                 string file = File.ReadAllText(pathToFile);
                 dynamic results = JsonConvert.DeserializeObject<dynamic>(file);
-                string encryptedWords = results.ecryptedWords;
+                string encryptedWords = results.encryptedWords;
                 words = Rijndael.Decrypt(encryptedWords, password, KeySize.Aes256);
                 string dateAndTime = results.date;
             }
             catch (Exception e)
             {
                 WriteLine($"Load error: {e.Message}");
+                
             }
             return Recover(words);
         }
